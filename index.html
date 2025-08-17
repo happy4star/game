@@ -50,7 +50,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 2.5em; /* スコアと同じサイズに */
+            font-size: 2.5em;
             font-weight: bold;
             text-shadow: 2px 2px 4px #000;
             z-index: 10;
@@ -70,6 +70,7 @@
             box-shadow: 0 0 15px #fff;
             display: none;
             z-index: 20;
+            max-width: 800px;
         }
 
         #message-text {
@@ -159,6 +160,24 @@
             0% { color: #ff0; }
             100% { color: #fff; }
         }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 600px) {
+            #game-info, #timer-info {
+                font-size: 1.5em; /* Smaller font for score and timer */
+                top: 5px;
+            }
+            #game-info {
+                left: 5px;
+            }
+            #timer-info {
+                right: 5px;
+            }
+            #score-change-effect {
+                font-size: 1.5em;
+                left: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -186,7 +205,7 @@
 
 <div id="controls-info">
     マウスを左右に動かすか、左右矢印キーで砲台を操作。<br>
-    マウスの左クリックか、スペースキーで弾を発射してください。
+    マウスの左クリックか、スペースキーかシフトキーで弾を発射してください。
 </div>
 
 <script>
@@ -562,7 +581,7 @@
         function onKeyDown(e) {
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
                 keys[e.key] = true;
-            } else if (e.key === ' ' && canShoot) {
+            } else if ((e.key === ' ' || e.key === 'Shift') && canShoot) {
                 e.preventDefault();
                 shootBullet();
             }
